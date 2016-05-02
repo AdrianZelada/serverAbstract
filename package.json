@@ -1,0 +1,26 @@
+{
+  "name": "mongoabs",
+  "version": "1.0.0",
+  "description": "angular with node and mongo ,server abstract realTime",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrianZelada/serverAbstract.git"
+  },
+  "keywords": [
+    "mongo",
+    "game",
+    "server",
+    "realtime",
+    "angular"
+  ],
+  "author": "Adrian Zelada",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdrianZelada/serverAbstract/issues"
+  },
+  "homepage": "https://github.com/AdrianZelada/serverAbstract#readme"
+}
