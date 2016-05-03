@@ -7,7 +7,7 @@
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 
-    var abstractModel=require('model/abstractModel')
+    var modelAbstract=require('./model/modelAbstract')
 
 
     mongoose.connect('mongodb://localhost:27017/dbGame',function(err,db){
@@ -25,3 +25,21 @@
     // listen (start app with node server.js) ======================================
     app.listen(8080);
     console.log("App listening on port 8080");
+
+
+
+    var users=new modelAbstract('users',{
+    	text:String
+    },mongoose);
+
+
+    var user=new users({
+    	text:'adrian',
+    });
+
+    user.add(function(err,tod){
+		user.set.text('Lucha');
+		user.edit();
+    });
+    
+    
