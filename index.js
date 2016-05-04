@@ -32,14 +32,26 @@
     	text:String
     },mongoose);
 
+    var system=new modelAbstract('system',{
+        text:String
+    },mongoose);
 
-    var user=new users({
-    	text:'adrian',
+    users.getAll(function(data){
+        console.log(data);
     });
 
+    /*var user=new users({
+    	text:'adrian',
+    });*/
+/*
     user.add(function(err,tod){
 		user.set.text('Lucha');
 		user.edit();
     });
-    
+
+
+    users.getAll(function(data){
+        console.log(data);
+    })
+  */  
     

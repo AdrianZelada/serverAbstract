@@ -16,8 +16,7 @@ function modelAbstract(classModel,objType,mongooseModel){
 				fn(err,tod);
 			});
 		}
-		this.edit=function(fn){
-			console.log(schema);
+		this.edit=function(fn){			
 			modelMongo.findById(schema._id,function(err,item){				
 				for(var ind in schema){
 					item[ind]=schema[ind];
@@ -27,10 +26,7 @@ function modelAbstract(classModel,objType,mongooseModel){
 						fn(e,t);	
 					}					
 				});
-			})
-			//modelMongo.update({_id:schema._id},{$set:{}})
-
-
+			})			
 		}
 
 		function generateGet(){
@@ -53,69 +49,25 @@ function modelAbstract(classModel,objType,mongooseModel){
 			return obj;
 		}		
 	}
-	model.getAll=function(){
-		console.log("asdasxxxxxxxxxa");
+
+	model.args={
+		name:classModel,
+		objType:objType,
+		mongo:mongooseModel
+	};
+
+	model.mongo=modelMongo;
+
+	model.getAll=function(fn){
+		model.mongo.find(function(err,data){
+			if(!err){
+				if(typeof fn ==="function"){
+					fn(data);
+				}				
+			}
+		});		
 	}
 	return model;
 }
 
 module.exports=modelAbstract;
-
-/*modelAbstract.prototype={
-		getAll:function(){
-			console.log("asdasd");
-		},
-		setAll:function(){
-			console.log("asdasxxxxxxd");	
-		}
-	}
-/*modelAbstract.prototype.getAll=function(){
-	console.log("asdasd");
-}*/
-//modelAbstract.prototype.getAll();
-/*var users=new modelAbstract();
-console.log(users);
-
-users.getAll()
-
-//console.log(users.getAll());
-var user = new users(
-		{
-			id:1,
-			nombre:"Adrian"
-		}
-	);
-*/
-/*
-var users=new modelAbstract();
-
-var user = new users(
-		{
-			id:1,
-			nombre:"Adrian"
-		}
-	);
-
-var user2=new users(
-{
-	id:21,
-	nombre:"walter"
-})
-
-console.log(user);
-console.log('****************');
-console.log(user.get.id());
-console.log('****************');
-console.log(user.get.nombre());
-console.log('****************');
-console.log('****************');
-user.set.id(2);
-console.log('****************');
-user.set.nombre("Pedro");
-console.log('****************');
-console.log(user.get.id());
-console.log(user.get.nombre());
-console.log('****************');
-console.log(user2.get.id())
-console.log(user2.get.nombre())*/
-
