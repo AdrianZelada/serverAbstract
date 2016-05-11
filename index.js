@@ -1,14 +1,18 @@
 // node server 
 // 	
 	var express  = require('express');
-    var app      = express();                               // create our app w/ express
+    var app      = express();                   // create our app w/ express
     var mongoose = require('mongoose');                     // mongoose for mongodb
     var morgan = require('morgan');             // log requests to the console (express4)
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 
-    var modelAbstract=require('./model/modelAbstract')
+    var modelAbstract=require('./model/modelAbstract');
 
+    var User=require('./model/UserModel')(modelAbstract,mongoose,{
+        text:String
+    });
+  
 
     mongoose.connect('mongodb://localhost:27017/dbGame',function(err,db){
         console.log(err,db);
@@ -26,32 +30,32 @@
     app.listen(8080);
     console.log("App listening on port 8080");
 
+      
+    User.modelFunction();
 
-
-    var users=new modelAbstract('users',{
-    	text:String
-    },mongoose);
-
-    var system=new modelAbstract('system',{
-        text:String
-    },mongoose);
-
-    users.getAll(function(data){
-        console.log(data);
-    });
-
-    /*var user=new users({
-    	text:'adrian',
-    });*/
-/*
-    user.add(function(err,tod){
-		user.set.text('Lucha');
-		user.edit();
-    });
-
-
-    users.getAll(function(data){
-        console.log(data);
+    User.getAll(function(data){
+        //console.log(data);
     })
-  */  
-    
+
+    User.mongo.find(function(err,data){
+        //console.log(data);
+    })
+
+    var user=new User({
+        text:"Raysil"
+    });
+
+    var arrayUsers=[];
+    User.getAll(function(data){
+        arrayUsers=data.map(function(data){
+            
+            return new User(data);
+        })
+        arrayUsers.forEach(function(val,ind){
+            console.log(val.get.text());            
+        })
+    });
+
+    //user.add();
+    //user.edit(obj);
+    //user.delete();

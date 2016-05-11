@@ -3,8 +3,17 @@ function modelAbstract(classModel,objType,mongooseModel){
 	var modelMongo= mongooseModel.model(classModel,objType);
 
 	var model= function(objAbstract){
-		var schema=objAbstract;
-		var arrayFn=Object.getOwnPropertyNames(objAbstract);
+		var schema= objAbstract;
+
+		//console.log(objType);
+		var arrayFn=[];
+
+//		console.log(typeof schema.schema);
+		//for(ind in objType){	arrayFn.push(ind) ;}
+
+
+		var arrayFn=Object.getOwnPropertyNames(objType);		
+		//console.log(arrayFn);
 
 		this.get=generateGet.bind(this)();
 	
@@ -13,7 +22,9 @@ function modelAbstract(classModel,objType,mongooseModel){
 		this.add=function(fn){			
 			modelMongo.create(schema,function(err,tod){				
 				schema._id=tod._id;
-				fn(err,tod);
+				if(typeof fn ==='function'){
+					fn(err,tod);
+				}				
 			});
 		}
 		this.edit=function(fn){			
@@ -27,6 +38,16 @@ function modelAbstract(classModel,objType,mongooseModel){
 					}					
 				});
 			})			
+		}
+
+		this.delete=function(fn){
+
+			console.log('delet')
+			console.log(schema)
+
+			modelMongo.remove({_id:schema._id},function(){
+
+			})
 		}
 
 		function generateGet(){
